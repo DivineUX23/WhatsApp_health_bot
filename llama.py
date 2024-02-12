@@ -22,7 +22,7 @@ cohere_api = config('CohereAPI')
 
 
 #Conversation Endpoint:
-
+"""
 @app.post("/response/")
 async def conversationing(input: str, db: Session = Depends(get_db), current_user: user = Depends(oauth.get_current_user)):
 
@@ -38,4 +38,4 @@ async def conversationing(websocket: WebSocket, db: Session = Depends(get_db), c
     while True:
         input = await websocket.receive_text()
         result = conversation(input=input, db=db, current_user=current_user)
-        await websocket.send_text(result)"""
+        await websocket.send_text(result)

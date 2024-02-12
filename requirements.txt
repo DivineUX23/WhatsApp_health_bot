@@ -1,8 +1,12 @@
-fastapi==0.109.2
-mysql_connector_repackaged==0.3.1
-passlib==1.7.4
-pydantic==2.6.1
+fastapi==0.104.1
+librosa==0.10.1
+mysql-connector-python
+passlib[bcrypt]
+pydantic==2.4.2
+PyJWT==2.8.0
 python-decouple==3.8
-python-dotenv==1.0.1
+python-dotenv==1.0.0
 python_jose==3.3.0
+Requests==2.31.0
 SQLAlchemy==2.0.22
+starlette==0.27.0

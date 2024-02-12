@@ -29,7 +29,7 @@ class Chatbot:
                                 """
 
     def generate_response(self, message: str):
-        co = cohere.Client("AlSrhcbP0GKiXYq4MoOSgzNU75bMDi7uTa0Dxqk3")
+        co = cohere.Client(cohere_api)
         response = co.chat(
                         message=message,
                         preamble_override=self.preamble_override,
@@ -94,26 +94,4 @@ def conversation(input: str, db: Session = Depends(get_db), current_user: user =
             resultant.append(event.citations[0])
             #result += "\n\nCITATIONS: " + json.dumps(event.citations[0])  # concatenate the citation
 
-    #print(f"result ___ {result}")
     return {"AI":result, "nCITATIONS":resultant}
-
-
-    """
-    for event in response:
-        
-        #text
-        if event.event_type == "text-generation":   
-            #yield event.text
-            result.append({"type": "text", "content": event.text})
-            print(event.text)
-
-        # Citations
-        if event.event_type == "StreamCitationGeneration":
-            if not citations_flag:
-                citations_flag = True
-            #yield f"CITATIONS: {event.citations[0]}"
-            result.append({"type": "citation", "content": f"CITATIONS: {event.citations[0]}"})
-
-        return result
-
-    """
