@@ -1,0 +1,13 @@
+.env
+__pycache__
+z_outline
+main_testing.py
+prompts.py
+/__pycache__
+__pycache__/
+Spacefile
+venv
+virtual
+myenv
+.space
+flagged
