@@ -1,5 +1,7 @@
 from sqlalchemy import Column, Integer, String, DateTime, Boolean
 from database.db import Base
+from datetime import datetime, timedelta
+
 
 class User(Base):
     __tablename__ = "user"
@@ -12,3 +14,9 @@ class User(Base):
 
     paid_start = Column(DateTime)
     paid_duration = Column(Integer)
+
+    def is_paid(self):
+        if self.paid_start and self.paid_duration:
+            return self.paid_start + timedelta(days=self.paid_duration) > datetime.utcnow()
+        else:
+            return False

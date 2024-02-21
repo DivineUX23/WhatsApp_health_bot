@@ -43,6 +43,11 @@ app.include_router(llama, tags=["Llama"])
 @app.get("/")
 def read_root(db: Session = Depends(get_db)):
     
+    
+    Audio_no = db.query(func.max(Audio.id)).scalar()
+    TEST = db.query(Audio).filter(Audio.id == 41).first()
+    print(TEST.transcript)
+
     Audio_no = db.query(func.max(Audio.id)).scalar()
     TEST = db.query(Audio).filter(Audio.id == 41).first()
     print(TEST.transcript)
