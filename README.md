@@ -6,11 +6,8 @@ This project is a software application designed to assist users in diagnosing th
 
 The code implements a conversational chatbot using two different AI models - Cohere and Google's Gemini. Users can have a natural conversation with the bot to describe their symptoms, and the bot will try to determine a possible diagnosis and suggest treatments. 
 
-### Note
-The application is designed to interact with users, collecting information about their symptoms and providing possible diagnoses and treatments.
-
-
-Key features:
+### Key features
+The application is designed to interact with users, collecting information about their symptoms and providing possible diagnoses and treatments. Key features include:
 
 - Cohere AI powers the chatbot conversation. It is set up to to provide diagnosis based on user info and search results.
 
