@@ -36,7 +36,8 @@ GEMINI_API_KEY=your_gemini_api_key
 
 ## Usage
 Run the main file:
-```uvicorn main:app
+```
+uvicorn main:app
 ```
 The application will start and you can interact with it via the command line.
 
