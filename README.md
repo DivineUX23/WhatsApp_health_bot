@@ -1,8 +1,6 @@
 # 24/7 Medical Support AI
 
-This project is a software application designed to assist users in diagnosing their illnesses. It acts like a medical support companion available 24/7 at the reach of your phone, powered by Cohere and Google Gemini AI.
-
-This project is a conversational AI assistant to help users diagnose their medical issues. It allows users to describe their symptoms and receive diagnostic suggestions and treatment recommendations.
+This project is a conversational AI assistant to help users diagnose their medical issues. It allows users to describe their symptoms and receive diagnostic suggestions and treatment recommendations. It acts like a medical support companion available 24/7 at the reach of your phone, powered by Cohere and Google Gemini AI.
 
 
 ## Overview
@@ -37,6 +35,8 @@ The application is designed to interact with users, collecting information about
 - SQLAlchemy - Database ORM
 - Cohere - Conversational AI
 - Google Gemini - Generative AI
+- Google Search - Search API
+- Tavily Search - Search API
 - OAuth - Authentication
 
 
