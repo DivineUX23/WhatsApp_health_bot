@@ -2,6 +2,9 @@
 
 This project is a software application designed to assist users in diagnosing their illnesses. It acts like a medical support companion available 24/7 at the reach of your phone, powered by Cohere and Google Gemini AI.
 
+## Note
+The application is designed to interact with users, collecting information about their symptoms and providing possible diagnoses and treatments.
+
 ## Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)
@@ -34,8 +37,7 @@ GEMINI_API_KEY=your_gemini_api_key
 
 ## Usage
 Run the main file:
-```bash
-python main.py
+```uvicorn main:app
 ```
 The application will start and you can interact with it via the command line.
 
