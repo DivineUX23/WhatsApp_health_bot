@@ -41,39 +41,34 @@ The application will start and you can interact with it via the command line.
 
 ## File Structure
 The project has the following file structure:
-```
-HEALTH/
-│
-├── database/
-│   ├── __pycache__/
-│   └── db.py
-│
-├── model/
-│   ├── __pycache__/
+```HEALTH
+├── datab
+│   └── Health
+│       ├── __pycache__
+│       └── db.py
+├── model
+│   ├── __pycache__
 │   └── users_model.py
-│
-├── schema/
-│   ├── __pycache__/
-│   └── users_schema.py
-|
-├── services/
-|    ├── __pycache__/
-|    ├── cohere.py 
-|    └── gemini.py 
-|
-├─ user_services.py 
-|
-├─ venv/ 
-|
-├─ .gitignore 
-|
-├─ hashing.py 
-|
-├─ llama.py 
-|
-├─ main.py 
-|
-└─ requirements.txt  
+├── schema
+│   ├── __pycache__
+│   └── users_schema.py 
+├── services 
+│   ├── __pycache__ 
+│   ├── cohere.py 
+│   └── gemini.py 
+├── user_services.py 
+├── venv 
+├── .env 
+├── .gitignore 
+├── hashing.py 
+├── llama.py  
+├── main.py  
+├── oauth.py  
+├── requirements.txt  
+├── token_key.py  
+├── user_login.py  
+╰─ user.py   
+
 ```
 
 ## Cohere Integration
