@@ -2,9 +2,12 @@
 
 This project is a software application designed to assist users in diagnosing their illnesses. It acts like a medical support companion available 24/7 at the reach of your phone, powered by Cohere and Google Gemini AI.
 
+This project is a conversational AI assistant to help users diagnose their medical issues. It allows users to describe their symptoms and receive diagnostic suggestions and treatment recommendations.
+
+
 ## Overview
 
-The code implements a conversational chatbot using two different AI models - Cohere and Google's Gemini. Users can have a natural conversation with the bot to describe their symptoms, and the bot will try to determine a possible diagnosis and suggest treatments. 
+The assistant is built using two AI models - Cohere and Google Gemini, to provide robust diagnosis capabilities. Users can have natural conversations with the assistant, describing any symptoms they are experiencing. The assistant will ask clarifying questions if needed, and provide possible diagnoses based on the symptoms. 
 
 ### Key features
 The application is designed to interact with users, collecting information about their symptoms and providing possible diagnoses and treatments. Key features include:
@@ -21,11 +24,21 @@ The application is designed to interact with users, collecting information about
 
 
 ## Table of Contents
+- [Technologies](#technologies)
 - [Installation](#installation)
 - [Usage](#usage)
 - [File Structure](#file-structure)
 - [Cohere Integration](#cohere-integration)
 - [Google Gemini Integration](#google-gemini-integration)
+
+## Technologies
+
+- FastAPI - REST API framework 
+- SQLAlchemy - Database ORM
+- Cohere - Conversational AI
+- Google Gemini - Generative AI
+- OAuth - Authentication
+
 
 ## Installation
 1. Clone the repository:
@@ -49,13 +62,40 @@ TAVILY_API_KEY=your_tavily_api_key
 GEMINI_API_KEY=your_gemini_api_key
 ```
 
-## Usage
 Run the main file:
 ```
 uvicorn main:app
 ```
 The application will start and you can interact with it via the command line.
 
+The assistant will be available at http://localhost:8000/docs
+
+
+## Usage
+
+Interact with the assistant through the `/conversation` endpoint. 
+
+Send a POST request with your message as the `input` body parameter. The API will call the assistant and return the response.
+
+Example request:
+
+```
+POST /conversation
+{
+    "input": "I have a bad headache and fever" 
+}
+```
+
+Example response:
+
+```json
+{
+    "AI": "Based on your symptoms of headache and fever, it sounds like you may have a viral infection like the flu or a cold. Some things you can try....",
+    "citations": ["https://www.webmd.com/cold-and-flu/default.htm", "https://www.cdc.gov/flu/index.htm"] 
+}
+```
+
+The `AI` field contains the assistant's response. `citations` includes any pages the assistant used for reference.
 
 
 ## Code Structure
@@ -162,4 +202,10 @@ The `gemini.py` file contains code for integrating Google's Gemini AI which can 
 
 
 ## Contributing
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+Pull requests are welcome! Feel free to open issues for any bugs or ideas for new features.
+
+Some areas that could use improvement:
+
+- Expanding the vocabulary and training data for medical symptom understanding
+- Integrating additional healthcare APIs for diagnosis suggestions
+- Building a user account system to track diagnosis history
