@@ -14,9 +14,8 @@ The application is designed to interact with users, collecting information about
 
 ## Installation
 1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/247-medical-support-ai.git
-cd 247-medical-support-ai
+```
+git clone https://github.com/DivineUX23/Health_cohere.git
 ```
 2. (Optional) Set up a virtual environment:
 ```bash
