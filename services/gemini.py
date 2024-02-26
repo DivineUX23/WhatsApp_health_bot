@@ -9,8 +9,6 @@ from langchain_core.messages import AIMessage, HumanMessage
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.pydantic_v1 import BaseModel, Field
 from langchain_google_genai import ChatGoogleGenerativeAI
-
-
 from langchain.prompts import HumanMessagePromptTemplate
 from langchain_core.messages import SystemMessage
 from langchain.tools import Tool
@@ -20,7 +18,7 @@ from langchain_community.utilities import GoogleSearchAPIWrapper
 import os
 from dotenv import load_dotenv
 
-load_dotenv()  # take environment variables from .env.
+load_dotenv()
 tavily_api_key = os.getenv("TAVILY_API_KEY")
 gemini_api_key = os.getenv("GEMINI_API_KEY")
 google_cse_id = os.getenv("GOOGLE_CSE_ID")
@@ -45,23 +43,32 @@ google_tool = Tool(
     description = description,
     func = search.run,
 )
-#-------------------------------------------
-
 
 # Create the tool
 search = TavilySearchAPIWrapper(tavily_api_key=tavily_api_key)
 description = description
 tavily_tool = TavilySearchResults(api_wrapper=search, description=description)
 
-tools = [tavily_tool]
 
-#tools = [google_tool]
+#NOTice: Choose search tool, between Tavily searchn and google search:
+while True:
+    choose_tool = input("Quick Result? (reply (y/n)): ")
 
-#llm = ChatGoogleGenerativeAI(temperature=0, model="gemini-pro", convert_system_message_to_human=True, google_api_key="AIzaSyBwVvXkHRbgcp9Z2qLnDMV5lS7YfJKvIQk")
+    if choose_tool.lower() == "y":
+        print("\nGoogle search activated\n")
+        tools = [google_tool]
+        break
+
+    elif choose_tool.lower() == "n":
+        print("\nTavily search activated\n")
+        tools = [tavily_tool]
+        break
+
+    else:
+        print("\nProvide a valid input (Y or N)\n")
 
 
 
-#______________________
 
 llm = ChatGoogleGenerativeAI(temperature=0, model="gemini-pro", google_api_key=gemini_api_key)
 
@@ -73,7 +80,7 @@ prompt = ChatPromptTemplate.from_messages(
     ]
 )
 
-#_________________________
+
 
 llm_with_tools = llm.bind(functions=tools)
 
@@ -119,17 +126,19 @@ def run(input1):
     if lst != []:
         #print(lst[0][1])
 
-        #if search works:
-        if lst[0][1] != "tavilly_search_results_json is not a valid tool, try one of [tavily_search_results_json]":
-            
-            obj = json.dumps(lst[0][1])
+        #for tavily search only:
+        if tools == [tavily_tool]:
 
-            urls = [item['url'] for item in json.loads(obj)]
+            if lst[0][1] != "tavilly_search_results_json is not a valid tool, try one of [tavily_search_results_json]":
+                
+                obj = json.dumps(lst[0][1])
 
-            for url in urls:
-                citation.append(url)
+                urls = [item['url'] for item in json.loads(obj)]
 
-            #print(citation)
+                for url in urls:
+                    citation.append(url)
+
+                #print(citation)
 
     return result['output'], citation
 
