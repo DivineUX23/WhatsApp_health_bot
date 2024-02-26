@@ -19,7 +19,6 @@ load_dotenv()  # take environment variables from .env.
 api_key = os.getenv("CohereAPI")
 
 
-
 cohere_api = config("CohereAPI")
 
 
@@ -110,5 +109,3 @@ Sending the Ai response as a dictionary which has a string (AI response) and a l
         {'start': 92, 'end': 98, 'text': 'mental', 'document_ids': ['web-search_6:1', 'web-search_1:0', 'web-search_7:0', 'web-search_7:1']}]}
 
 """
-
-
