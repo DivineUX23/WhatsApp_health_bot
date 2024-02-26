@@ -13,16 +13,18 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 
 from langchain.prompts import HumanMessagePromptTemplate
 from langchain_core.messages import SystemMessage
+from langchain.tools import Tool
+from langchain_community.utilities import GoogleSearchAPIWrapper
 
 
 import os
 from dotenv import load_dotenv
 
-
 load_dotenv()  # take environment variables from .env.
 tavily_api_key = os.getenv("TAVILY_API_KEY")
-
 gemini_api_key = os.getenv("GEMINI_API_KEY")
+google_cse_id = os.getenv("GOOGLE_CSE_ID")
+google_api_key = os.getenv("GOOGLE_API_KEY")
 
 
 description = """
@@ -33,18 +35,9 @@ description = """
                 Remember to maintain a professional and caring tone throughout the conversation.
             """
 
-#-------------------------------------------
-#os.environ["GOOGLE_CSE_ID"] = ""
-#os.environ["GOOGLE_API_KEY"] = ""
 
-google_cse_id = os.getenv("GOOGLE_CSE_ID")
 
-google_api_key = os.getenv("GOOGLE_API_KEY")
-
-from langchain.tools import Tool
-from langchain_community.utilities import GoogleSearchAPIWrapper
-
-search = GoogleSearchAPIWrapper(google_api_key="AIzaSyCk5u1I0BTkPmLVFlyb43utB_nIYoLr1tU", google_cse_id="238871ec818324e46")
+search = GoogleSearchAPIWrapper(google_api_key=google_api_key, google_cse_id=google_cse_id)
 
 
 google_tool = Tool(
