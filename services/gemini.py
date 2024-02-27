@@ -24,7 +24,7 @@ gemini_api_key = os.getenv("GEMINI_API_KEY")
 google_cse_id = os.getenv("GOOGLE_CSE_ID")
 google_api_key = os.getenv("GOOGLE_API_KEY")
 
-
+#--class
 description = """
                 You are a highly skilled and empathetic doctor.
                 Your primary role is to diagnose ailments based on the symptoms described by the patient.
@@ -34,22 +34,22 @@ description = """
             """
 
 
-
+#--class
 search = GoogleSearchAPIWrapper(google_api_key=google_api_key, google_cse_id=google_cse_id)
 
-
+#--class.tools:
 google_tool = Tool(
     name = "google_search",
     description = description,
     func = search.run,
 )
-
+#--class.tools:
 # Create the tool
 search = TavilySearchAPIWrapper(tavily_api_key=tavily_api_key)
 description = description
 tavily_tool = TavilySearchResults(api_wrapper=search, description=description)
 
-
+#--class.tools:
 #NOTice: Choose search tool, between Tavily searchn and google search:
 while True:
     choose_tool = input("Quick Result? (reply (y/n)): ")
@@ -69,7 +69,7 @@ while True:
 
 
 
-
+#--class.gemini:
 llm = ChatGoogleGenerativeAI(temperature=0, model="gemini-pro", google_api_key=gemini_api_key)
 
 prompt = ChatPromptTemplate.from_messages(
@@ -109,6 +109,7 @@ agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True, return_in
 
 import json
 
+#--class.run:
 def run(input1):
     result = agent_executor.invoke({"input": input1, "chat_history": chat_history})
     chat_history.extend(
@@ -118,6 +119,7 @@ def run(input1):
         ]
     )
 
+    #--def
     lst=result["intermediate_steps"]
     #print(lst)
 
@@ -142,7 +144,7 @@ def run(input1):
 
     return result['output'], citation
 
-
+#--def
 while True:
     input1 = input("User: ")
 
