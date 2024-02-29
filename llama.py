@@ -1,6 +1,6 @@
 from sqlalchemy.orm import Session
 from fastapi import FastAPI, WebSocket, status, Depends, APIRouter
-
+from typing import Optional
 import cohere
 
 
@@ -12,7 +12,7 @@ from services.cohere import conversation
 from services.gemini import run
 
 from schema.users_shema import user
-from schema.llm_schema import choose
+from schema.llm_schema import choose, search
 import oauth
 
 
@@ -54,13 +54,16 @@ async def choose(choice: choose, current_user: user = Depends(oauth.get_current_
 #Conversation Endpoint:
 
 @app.post("/response/")
-async def conversationing(input: str, db: Session = Depends(get_db), current_user: user = Depends(oauth.get_current_user)):
+async def conversationing(input: str, choice: search, db: Session = Depends(get_db), current_user: user = Depends(oauth.get_current_user)):
 
     chose_llm = fastapp.llm_instance
 
     model=chose_llm.current_model()
-    
-    result = model(input=input, db=db, current_user=current_user)
+
+    if model == conversation:
+        result = model(input=input, db=db, current_user=current_user)
+    elif model == run:
+        result = model(input=input, choice=choice, db=db, current_user=current_user)
 
 
     return {'message': status.HTTP_200_OK, "Detail": result}
