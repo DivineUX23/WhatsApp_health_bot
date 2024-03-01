@@ -70,12 +70,12 @@ class Gemini:
         self.tavily = [tavily_tool]
 
         if choose_tool.lower() == "tavily search":
-            print("\nGoogle search activated\n")
-            self.tool = [google_tool]
-
-        elif choose_tool.lower() == "google search":
             print("\nTavily search activated\n")
             self.tool = [tavily_tool]
+
+        elif choose_tool.lower() == "google search":
+            print("\nGoogle search activated\n")
+            self.tool = [google_tool]
 
         else:
             raise HTTPException(status_code=500, detail="Provide a valid input (Y or N)")    
@@ -156,15 +156,26 @@ class Gemini:
         return result['output'], citation
 
 
+#def run():
 
 def run(input: str, choice: search, db: Session = Depends(get_db), current_user: user = Depends(oauth.get_current_user)):
     print({"AI":choice})
+
+    #debug
+    #choice = input("Choose y/n")
 
     gemini = Gemini()
 
     gemini.tools(choice)
 
+    #debug
+    #inputing = input("question: ")
+
     result, citation  = gemini.gemini(input)
     print({"AI":result, "\n\nCITATIONS":citation})
 
     return {"AI":result, "CITATIONS":citation}
+
+
+#if __name__ == "__main__":
+    #run()
