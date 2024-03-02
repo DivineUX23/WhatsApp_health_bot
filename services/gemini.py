@@ -156,26 +156,14 @@ class Gemini:
         return result['output'], citation
 
 
-#def run():
-
 def run(input: str, choice: search, db: Session = Depends(get_db), current_user: user = Depends(oauth.get_current_user)):
     print({"AI":choice})
-
-    #debug
-    #choice = input("Choose y/n")
 
     gemini = Gemini()
 
     gemini.tools(choice)
 
-    #debug
-    #inputing = input("question: ")
-
     result, citation  = gemini.gemini(input)
     print({"AI":result, "\n\nCITATIONS":citation})
 
     return {"AI":result, "CITATIONS":citation}
-
-
-#if __name__ == "__main__":
-    #run()
