@@ -5,14 +5,16 @@ This project is a conversational AI assistant to help users diagnose their medic
 
 ## Overview
 
-The assistant is built using two AI models - Cohere and Google Gemini, to provide robust diagnosis capabilities. Users can have natural conversations with the assistant, describing any symptoms they are experiencing. The assistant will ask clarifying questions if needed, and provide possible diagnoses based on the symptoms. 
+The assistant uses two AI models - Cohere and Google Gemini, to provide robust diagnosis capabilities. Users can have natural conversations with the assistant, describing any symptoms they are experiencing. If needed, the assistant will ask clarifying questions and provide possible diagnoses based on the symptoms. 
 
 ### Key features
 The application is designed to interact with users, collecting information about their symptoms and providing possible diagnoses and treatments. Key features include:
 
-- Cohere AI powers the chatbot conversation. It is set up to to provide diagnosis based on user info and search results.
+- Users are capable of choosing between Cohere AI and Google Gemini AI to provide diagnosis based on user info and search results.
 
-- Google Gemini AI also powers the chatbot conversation fully capable of replacing Cohere AI but is not yet set up to an endpoint.
+- Cohere AI powers the chatbot conversation. It is set up to provide diagnosis based on user info and search results.
+
+- Google Gemini AI also powers the chatbot conversation fully capable of replacing Cohere AI. Users can choose to activate Google Gemini instead of Cohere AI.
 
 - User input is analyzed to extract symptoms and gather information. The bot asks clarifying questions as needed. 
 
@@ -106,7 +108,7 @@ The code is structured into the following folders:
 
 - `model`: Defines the User model.
 
-- `schema`: Validation schemas for User. 
+- `schema`: Validation schemas for Users. 
 
 - `services`: Individual bot logic - `cohere.py` and `gemini.py`.
 
@@ -171,7 +173,11 @@ The `cohere.py` file contains code for integrating the Cohere API into the appli
 
 
 ## Google Gemini Integration
-The `gemini.py` file contains code for integrating Google's Gemini AI which can be used for medical advice in place of Cohere API but is not yet set up to an endpoint. It will be functional after connecting it to an appropriate API endpoint.
+The `gemini.py` file includes code that integrates Google’s Gemini AI. This AI can be used to provide medical advice, serving as an alternative to the Cohere API. 
+
+The code is constructed using the Langchain framework, which equips Google Gemini with the capability to search the web and deliver suitable health diagnoses. 
+y
+Furthermore, it employs FastAPI and SQLAlchemy to establish an interactive endpoint, enabling users to seek medical advice from the AI. Some key points:
 
 - API keys loaded from `.env`. 
 
@@ -185,10 +191,6 @@ The `gemini.py` file contains code for integrating Google's Gemini AI which can 
 
 
 ## Further Work
-
-- Connect Google Gemini AI to the endpoint
-
-- Option to choose between Cohere AI and Google Gemini AI
 
 - Connect endpoints to UI.
 
