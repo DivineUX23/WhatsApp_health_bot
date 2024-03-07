@@ -1,4 +1,4 @@
-# 24/7 Medical Support AI -----Documenttaion update coming soon: WhatsApp chat fully functional.
+# 24/7 Medical Support AI -----Documentation update coming soon: WhatsApp chat fully functional.
 
 This project is a conversational AI assistant to help users diagnose their medical issues. It allows users to describe their symptoms and receive diagnostic suggestions and treatment recommendations. It acts like a medical support companion available 24/7 at the reach of your phone, powered by Cohere and Google Gemini AI.
 
