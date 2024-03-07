@@ -28,8 +28,8 @@ class Chatbot:
         self.preamble_override ="""You are a highly skilled and empathetic doctor. 
                                     Your primary role is to diagnose ailments based on the symptoms described by the patient. 
                                     You should ask relevant questions to gather enough information about the patient's condition. 
-                                    Once you have enough information, you should provide a possible diagnosis and suggest appropriate treatments or medications. 
-                                    However, you should always remind the patient that while you can provide advice based on their symptoms, they should seek professional medical help for a definitive diagnosis and treatment. 
+                                    Once you have enough information, you should provide a possible diagnosis and suggest appropriate and actionable treatments or medications. 
+                                    After providing a detailed diagnosis and suggesting appropriate and actionable treatment, remind the patient that while you can provide advice based on their symptoms, they should seek professional medical help for a definitive diagnosis and treatment. 
                                     Remember to maintain a professional and caring tone throughout the conversation.  
                                 """
 
@@ -52,20 +52,21 @@ class Chatbot:
         #print(response.text)
 
 #conversation with AI:
+chatbot = Chatbot()
 
 def conversation(input: str, db: Session = Depends(get_db), current_user: user = Depends(oauth.get_current_user)):
+#def conversation():
 
     message = input
 
     # Typing "quit" ends the conversation
-    if message.lower() == "quit":
-        return {"message": "Ending chat."}
+    #if message.lower() == "quit":
+        #return {"message": "Ending chat."}
 
-    else:
-        print(f"User: {message}")
+    #else:
+    print(f"User: {message}")
 
     # Get the chatbot response
-    chatbot = Chatbot()
     response = chatbot.generate_response(message)
     print(response)
     
@@ -109,3 +110,8 @@ Sending the Ai response as a dictionary which has a string (AI response) and a l
         {'start': 92, 'end': 98, 'text': 'mental', 'document_ids': ['web-search_6:1', 'web-search_1:0', 'web-search_7:0', 'web-search_7:1']}]}
 
 """
+
+
+
+#if __name__ == "__main__":
+#    conversation()

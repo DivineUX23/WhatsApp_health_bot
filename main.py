@@ -11,7 +11,7 @@ from sqlalchemy import func
 from user import app as user
 from user_login import app as user_login
 from llama import app as llama
-
+from whatsapp import app as whatsapp
 
 app = FastAPI()
 
@@ -36,21 +36,12 @@ app.add_middleware(
 app.include_router(user, tags=["User"])
 app.include_router(user_login, tags=["User"])
 app.include_router(llama, tags=["Llama"])
+app.include_router(whatsapp, tags=["WhatsApp"])
 
 
-"""
 #Testing:
 @app.get("/")
 def read_root(db: Session = Depends(get_db)):
-    
-    
-    Audio_no = db.query(func.max(Audio.id)).scalar()
-    TEST = db.query(Audio).filter(Audio.id == 41).first()
-    print(TEST.transcript)
 
-    Audio_no = db.query(func.max(Audio.id)).scalar()
-    TEST = db.query(Audio).filter(Audio.id == 41).first()
-    print(TEST.transcript)
 
     return {"Message": "Debugger page"}
-"""

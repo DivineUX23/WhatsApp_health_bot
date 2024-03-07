@@ -59,7 +59,6 @@ def model_choice():
 async def choose(choice: choose, manager: Choose = Depends(model_choice), current_user: user = Depends(oauth.get_current_user)):
 
     user_choose = manager.model(choice)
-
     return {'message': status.HTTP_200_OK, "Detail": f"{user_choose} is now live"}
 
 
@@ -79,14 +78,4 @@ async def conversationing(input: str, choice: search, manager: Choose = Depends(
         
         result = model(input=input, choice=choice, db=db, current_user=current_user)
 
-
     return {'message': status.HTTP_200_OK, "Detail": result}
-
-"""
-@app.websocket("/response/")
-async def conversationing(websocket: WebSocket, db: Session = Depends(get_db), current_user: user = Depends(oauth.get_current_user)):
-    await websocket.accept()
-    while True:
-        input = await websocket.receive_text()
-        result = conversation(input=input, db=db, current_user=current_user)
-        await websocket.send_text(result)"""

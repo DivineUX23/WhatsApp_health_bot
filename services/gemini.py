@@ -51,6 +51,8 @@ class Gemini:
 
         self.agent_executor = None
 
+        self.chat_history = []
+
 
     def tools(self, choose_tool):
 
@@ -119,47 +121,44 @@ class Gemini:
         self.agent_executor = AgentExecutor(agent=agent, tools=self.tool, verbose=True, return_intermediate_steps=True, handle_parsing_errors=True)
 
 
-        chat_history = []
+        #chat_history = []
 
         
-        result = self.agent_executor.invoke({"input": input, "chat_history": chat_history})
-        chat_history.extend(
+        result = self.agent_executor.invoke({"input": input, "chat_history": self.chat_history})
+        self.chat_history.extend(
             [
                 HumanMessage(content=input),
                 AIMessage(content=result["output"]),
             ]
         )
 
-
         lst=result["intermediate_steps"]
-        #print(lst)
-
         citation = []
         
         if lst != []:
-            #print(lst[0][1])
+            print(lst[0][1])
 
             #for tavily search only:
             if self.tool == self.tavily:
-
-                if lst[0][1] != "tavilly_search_results_json is not a valid tool, try one of [tavily_search_results_json]":
-                    
+                try:
                     obj = json.dumps(lst[0][1])
 
                     urls = [item['url'] for item in json.loads(obj)]
 
                     for url in urls:
                         citation.append(url)
-
-                    #print(citation)
+                        
+                except TypeError:
+                    pass
 
         return result['output'], citation
+    
 
+
+gemini = Gemini()
 
 def run(input: str, choice: search, db: Session = Depends(get_db), current_user: user = Depends(oauth.get_current_user)):
     print({"AI":choice})
-
-    gemini = Gemini()
 
     gemini.tools(choice)
 

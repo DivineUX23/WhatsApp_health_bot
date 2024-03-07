@@ -6,95 +6,97 @@ from schema.llm_schema import choose, search
 from database.db import get_db
 
 from services.twilio import send_message
+from twilio.rest import Client
 
 
-qa = llama.choose
+app = APIRouter(tags = ["WhatsApp"])
 
 
-app = APIRouter(tags = ["Llama"])
+@app.get('/testing/')
+async def home():
+    return {"Message": "Debugger TESTING----"}
 
 
-option = None
+#ENDPOINT
 
-@app.post('/')
-def home():
-    return 'OK', 200
+chosen = None
+choice = None
+@app.post("/twilio/")
+async def twilio(request: Request, manager: llama.Choose = Depends(llama.model_choice), db: Session = Depends(get_db)):
+    global chosen
+    global choice
+    sending_message = None
 
+    provide = await request.form()
+    input = provide.get('Body')
+    sender_id = provide.get('From')
+    print(sender_id, input)
+ 
+    send_message(sender_id, "Thinking...")
+    current_user = sender_id   
 
-chosen_model = None
-
-@app.post("/whatsapp_choose/")
-def whatsapp_choose(current_user: str, request: Request, manager: llama.Choose = Depends(llama.model_choice)):
-
-    #choice = chosen_model
-
-    while chosen_model not in ["Cohere large AI", "Google Gemini AI"]:
-
-        query = request.form['Body']
-        sender_id = request.form['From']
-        print(sender_id, query)
-
-        chosen_model = query
-
-        if chosen_model in ["Cohere large AI", "Google Gemini AI"]:
-            break
-        else:
-            res = "Hi chat with Cohere large AI or Google Gemini AI"
-            try:
-                send_message(sender_id, res)
-            except Exception as e:
-                print(f"Failed to send message: {e}")
-            
-    choosen = choose(choice = chosen_model, manager = manager, current_user = current_user)     
-    print(choosen)
-    
-    try:
-        send_message(sender_id, choosen['Detail'])
-    except Exception as e:
-        print(f"Failed to send message: {e}")
-
-    return {'message': status.HTTP_200_OK, "Detail": choosen['Detail']}
-
-
-
-@app.post("/whatsapp_chat/")
-def twilio(request: Request, current_user: str, manager: llama.Choose = Depends(llama.model_choice), db: Session = Depends(get_db)):
-
-    global chosen_model
-    choice = None
-
-    #if chosen_model == "Google Gemini AI" and choice not in ["Cohere large AI", "Google Gemini AI"]:
-
-    while chosen_model == "Google Gemini AI" and choice not in ["Cohere large AI", "Google Gemini AI"]:
-        choice = request.form['Body']
-        sender_id = request.form['From']
-        print(sender_id, choice)
-
-        if choice in ["Cohere large AI", "Google Gemini AI"]:
-            break
-        else:
-            res = "Hi chat with Tavily search or Google search"
-            
+    if chosen not in ["Cohere large AI", "Google Gemini AI"]:
+        chosen = await whatsapp_choose(choice = input, current_user=current_user, manager=manager)
         try:
-            send_message(sender_id, res)
-        except:
-            pass
-
-        print(res)
-
-
-    else:
-
-        input = request.form['Body']
-        sender_id = request.form['From']
-        print(sender_id, input)
-            
-        res = llama.conversationing(input = input, choice = choice, manager = manager, db = db, current_user = current_user)
-        print(res)
-
-        try:
-            send_message(sender_id, res['Detail'])
+            if chosen == "Cohere large AI":
+                sending_message = "I'm happy to assist you. Could you describe any health concerns you're experiencing?"
+            elif chosen == "Google Gemini AI":
+                sending_message = "Would you like me to be detailed or concise? \nPlease reply with one of these options."
+            else:
+                sending_message = chosen
         except Exception as e:
             print(f"Failed to send message: {e}")
 
-        return {'message': status.HTTP_200_OK, "Detail": res['Detail']}
+    elif chosen == "Google Gemini AI" and choice == None:
+
+        if input.lower() == "detailed":
+            input = "Tavily search"
+        elif input.lower() == "concise":
+            input = "Google search"
+
+        if input in ["Tavily search", "Google search"]:
+            choice = input
+            res = f"Ready to assist! What questions do you have for me?"
+        else:
+            #res = "Hi would you like to chat with Tavily search or Google search?"
+            res = "Would you like me to be detailed or concise? \n\nPlease reply with one of these options."
+
+        try:
+            #send_message(sender_id, res)
+            sending_message = res
+        except Exception as e:
+            print(f"Failed to send message: {e}")            
+        print(res)
+
+    elif chosen in ["Cohere large AI", "Google Gemini AI"]:
+        response = await llama.conversationing(input = input, choice = choice, manager = manager, db = db, current_user = current_user)        
+        sending_message = response['Detail']["AI"]
+        #sending_citaion = response['Detail']["nCITATIONS"]
+        print(sending_message)
+        #print(sending_citaion)
+
+    try:
+        send_message(sender_id, sending_message)
+    except Exception as e:
+        print(f"Failed to send message: {e}")
+
+    return {'message': status.HTTP_200_OK, "Detail": sending_message}
+
+
+
+
+async def whatsapp_choose(choice, current_user, manager: llama.Choose = Depends(llama.model_choice)):
+    
+    if choice.lower() in ("detailed", "diagnosis") or "detail" in choice.lower():
+        choice = "Cohere large AI"
+    elif choice.lower() in ("quick", "check-in") or "quick" in choice.lower():
+        choice = "Google Gemini AI"
+
+    if choice not in ["Cohere large AI", "Google Gemini AI"]:
+        user_choose = "Hi! How about a detailed diagnosis or a quick check-in? \n\nPlease reply with one of these options."
+    else:
+        choosen = await llama.choose(choice = choice, manager = manager, current_user = current_user)
+        user_choose = choice 
+    print(f"--------------------------------{user_choose}")
+
+    return user_choose
