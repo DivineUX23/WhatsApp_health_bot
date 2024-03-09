@@ -1,4 +1,4 @@
-# 24/7 Medical Support AI -----Documentation update coming soon: WhatsApp chat fully functional.
+# 24/7 Medical Support AI on WhatsApp -----Documentation update coming soon: WhatsApp chat fully functional.
 
 It's 2 am, and a sudden wave of unfamiliar symptoms disrupts your sleep.  With no recourse to a medical professional, you turn to your phone.  A sophisticated AI chatbot, readily available through your WhatsApp, analyzes your condition, offering potential diagnoses and suggesting over-the-counter remedies or home treatments.
 
