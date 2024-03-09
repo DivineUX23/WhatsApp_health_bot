@@ -11,7 +11,7 @@ Millions in regions with limited healthcare suffer from undiagnosed illnesses. L
 
 This project proposes a WhatsApp-based Conversational Health Chatbot to empower users with basic health tools for self-monitoring and informed decisions, preventing future complications.  
 
-Focusing on WhatsApp leverages existing familiarity, especially in developing countries, and eliminates the need for app downloads or website navigation for cost-effective access.
+Focusing on WhatsApp as the frontend leverages existing familiarity, especially in developing countries, and eliminates the need for app downloads or website navigation for cost-effective access.
 
 
 ## Overview
