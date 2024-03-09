@@ -6,7 +6,7 @@ This project is a conversational AI assistant in WhatsApp to help users diagnose
 
 
 
-##Problem statement
+## Problem statement
 Millions in regions with limited healthcare suffer from undiagnosed illnesses. Lack of understanding leads to untreated conditions, escalating costs when early intervention could prevent complications. 
 
 This project proposes a WhatsApp-based Conversational Health Chatbot to empower users with basic health tools for self-monitoring and informed decisions, preventing future complications.  
