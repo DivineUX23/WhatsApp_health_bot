@@ -1,6 +1,17 @@
-# 24/7 Medical Support AI -----Documentation update coming soon: WhatsApp chat fully functional.
+# 24/7 Medical Support AI on WhatsApp -----Documentation update coming soon: WhatsApp chat fully functional.
 
-This project is a conversational AI assistant to help users diagnose their medical issues. It allows users to describe their symptoms and receive diagnostic suggestions and treatment recommendations. It acts like a medical support companion available 24/7 at the reach of your phone, powered by Cohere and Google Gemini AI.
+It's 2 am, and a sudden wave of unfamiliar symptoms disrupts your sleep.  With no recourse to a medical professional, you turn to your phone.  A sophisticated AI chatbot, readily available through your WhatsApp, analyzes your condition, offering potential diagnoses and suggesting over-the-counter remedies or home treatments.
+
+This project is a conversational AI assistant in WhatsApp to help users diagnose their medical issues. It allows users to describe their symptoms and receive diagnostic suggestions and treatment recommendations. It acts like a medical support companion available 24/7 at the reach of your phone, powered by Cohere and Google Gemini AI.
+
+
+
+## Problem statement
+Millions in regions with limited healthcare suffer from undiagnosed illnesses. Lack of understanding leads to untreated conditions, escalating costs when early intervention could prevent complications. 
+
+This project proposes a WhatsApp-based Conversational Health Chatbot to empower users with basic health tools for self-monitoring and informed decisions, preventing future complications.  
+
+Focusing on WhatsApp as the frontend leverages existing familiarity, especially in developing countries, and eliminates the need for app downloads or website navigation for cost-effective access.
 
 
 ## Overview
@@ -10,7 +21,7 @@ The assistant uses two AI models - Cohere and Google Gemini, to provide robust d
 ### Key features
 The application is designed to interact with users, collecting information about their symptoms and providing possible diagnoses and treatments. Key features include:
 
-- Users are capable of choosing between Cohere AI and Google Gemini AI to provide diagnosis based on user info and search results.
+- Users can choose between Cohere AI and Google Gemini AI to provide diagnosis based on user info and search results.
 
 - Cohere AI powers the chatbot conversation. It is set up to provide diagnosis based on user info and search results.
 
