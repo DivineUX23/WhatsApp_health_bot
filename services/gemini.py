@@ -133,7 +133,8 @@ class Gemini:
         )
 
         lst=result["intermediate_steps"]
-        citation = []
+        #citation = []
+        citation = ""
         
         if lst != []:
             print(lst[0][1])
@@ -146,8 +147,8 @@ class Gemini:
                     urls = [item['url'] for item in json.loads(obj)]
 
                     for url in urls:
-                        citation.append(url)
-                        
+                        #citation.append(url)
+                        citation += f"\n\n{url}"
                 except TypeError:
                     pass
 

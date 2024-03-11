@@ -39,38 +39,44 @@ class Chatbot:
                         message=message,
                         preamble_override=self.preamble_override,
                         conversation_id=self.conversation_id,
-                        stream=True,
+                        stream=False,
                         temperature=0.3,
                         return_chat_history=True,
                         prompt_truncation='AUTO',
                         citation_quality='fast',
                         connectors=[{"id":"web-search"}],
                         )
-        #return response
-        for event in response:
-            yield event
-        #print(response.text)
+
+        #for event in response:
+            #yield event
+
+        return response
 
 #conversation with AI:
 chatbot = Chatbot()
 
 def conversation(input: str, db: Session = Depends(get_db), current_user: user = Depends(oauth.get_current_user)):
-#def conversation():
-
     message = input
-
-    # Typing "quit" ends the conversation
-    #if message.lower() == "quit":
-        #return {"message": "Ending chat."}
-
-    #else:
     print(f"User: {message}")
-
-    # Get the chatbot response
     response = chatbot.generate_response(message)
-    print(response)
-    
 
+    text = response.text
+    documents = response.documents
+    result = ""
+    seen = set()
+
+    for doc in documents:
+        url = doc['url']
+
+        if url not in seen:
+            seen.add(url)
+            result += f"\n\n{url}"
+
+    print(f"The text is: {text}")
+    print(f"The url of the first document is: {result}")
+    
+    #the code below enables streaming with a little tweak. Ensure co.chat stream is True
+    """
     if not response:
         raise HTTPException(status_code=500, detail="Chatbot response error")
     
@@ -93,9 +99,9 @@ def conversation(input: str, db: Session = Depends(get_db), current_user: user =
                 citations_flag = True
             print(event.citations[0])
             resultant.append(event.citations[0])
-
-    print({"AI":result, "nCITATIONS":resultant})
-    return {"AI":result, "nCITATIONS":resultant}
+    """
+    #print({"AI":text, "CITATIONS":result})
+    return {"AI":text, "CITATIONS":result}
 
 
 """
@@ -105,9 +111,9 @@ Sending the Ai response as a dictionary which has a string (AI response) and a l
     'AI': "It's best to begin by first establishing what you are experiencing. Do you have physical or mental symptoms you are concerned about? 
     Try to describe your symptoms in as much detail as possible so we can explore potential causes and solutions. ", 
     
-    'nCITATIONS': [
-        {'start': 80, 'end': 88, 'text': 'physical', 'document_ids': ['web-search_6:1', 'web-search_1:0', 'web-search_7:0', 'web-search_7:1']}, 
-        {'start': 92, 'end': 98, 'text': 'mental', 'document_ids': ['web-search_6:1', 'web-search_1:0', 'web-search_7:0', 'web-search_7:1']}]}
+    'CITATIONS':   link 1
+                    link 2
+                    link 3...}
 
 """
 

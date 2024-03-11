@@ -71,12 +71,15 @@ async def twilio(request: Request, manager: llama.Choose = Depends(llama.model_c
     elif chosen in ["Cohere large AI", "Google Gemini AI"]:
         response = await llama.conversationing(input = input, choice = choice, manager = manager, db = db, current_user = current_user)        
         sending_message = response['Detail']["AI"]
-        #sending_citaion = response['Detail']["nCITATIONS"]
         print(sending_message)
-        #print(sending_citaion)
+
+        sending_citaion = f"Source: \n\n{response['Detail']['CITATIONS']}"
+        print(sending_citaion)
 
     try:
         send_message(sender_id, sending_message)
+        if response['Detail']["CITATIONS"] != "":
+            send_message(sender_id, sending_citaion)
     except Exception as e:
         print(f"Failed to send message: {e}")
 
