@@ -6,8 +6,8 @@ from enum import Enum
 
 
 class choose(str, Enum):
-    COHERE = "Cohere large AI"
     GEMINI = "Google Gemini AI"
+    COHERE = "Cohere large AI"
     
 
 class search(str, Enum):

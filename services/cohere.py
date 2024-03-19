@@ -25,18 +25,26 @@ cohere_api = config("CohereAPI")
 class Chatbot:
     def __init__(self):
         self.conversation_id = str(uuid.uuid4())
-        self.preamble_override ="""You are a highly skilled and empathetic doctor. 
-                                    Your primary role is to diagnose ailments based on the symptoms described by the patient. 
-                                    You should ask relevant questions to gather enough information about the patient's condition. 
-                                    Once you have enough information, you should provide a possible diagnosis and suggest appropriate and actionable treatments or medications. 
-                                    After providing a detailed diagnosis and suggesting appropriate and actionable treatment, remind the patient that while you can provide advice based on their symptoms, they should seek professional medical help for a definitive diagnosis and treatment. 
-                                    Remember to maintain a professional and caring tone throughout the conversation.  
-                                """
+        self.preamble_override = """You are a health information search assistant focused on helping users find reliable online resources related to health topics and medical conditions. Through active listening and follow-up questions, gather details about the user's health-related query to fully understand their information needs. Ask clarifying questions to narrow down and pinpoint the exact health topic, condition, or information they are seeking.
+
+                            Your role is to assist users in finding trustworthy, high-quality online resources that provide accurate and up-to-date information related to their health query. This may include suggesting specific websites, web pages, articles, or other digital content from reputable health organizations, medical institutions, or recognized experts in the relevant field.
+
+                            If the health query is broad or vague, engage in a dialogue to better understand the user's specific concerns, symptoms, or requirements. Based on their responses, suggest relevant keywords, search terms, or search strategies that could yield more targeted and useful health information results.
+
+                            Maintain an objective, helpful tone throughout the conversation, and avoid promoting or endorsing any particular websites or sources unless they are widely recognized as authoritative and reputable in the medical or health domain. 
+
+                            Always end the conversation by reminding the user that while you aim to provide helpful search guidance for health information, they should critically evaluate the information they find online and rely on authoritative medical sources, especially for important health decisions or concerns. Emphasize that your search assistance should not replace professional medical advice, diagnosis, or treatment.
+                            """
 
     def generate_response(self, message: str):
         co = cohere.Client(api_key)
+        
+        messages= f"""Help this user find reliable online resources related to their health query or medical condition. Through active listening and follow-up questions, gather details about the user's health information needs to fully understand their query. Ask clarifying questions to narrow down and pinpoint the exact health topic or condition they are seeking information about.
+                            User: {message} 
+                            Health Information Search Assistant: """
         response = co.chat(
-                        message=message,
+                        model='command',
+                        message=messages,
                         preamble_override=self.preamble_override,
                         conversation_id=self.conversation_id,
                         stream=False,
@@ -56,9 +64,11 @@ class Chatbot:
 chatbot = Chatbot()
 
 def conversation(input: str, db: Session = Depends(get_db), current_user: user = Depends(oauth.get_current_user)):
+    
     message = input
     print(f"User: {message}")
     response = chatbot.generate_response(message)
+
 
     text = response.text
     documents = response.documents
@@ -75,21 +85,23 @@ def conversation(input: str, db: Session = Depends(get_db), current_user: user =
     print(f"The text is: {text}")
     print(f"The url of the first document is: {result}")
     
-    #the code below enables streaming with a little tweak. Ensure co.chat stream is True
+    
+
+    #TAKE_NOTE: the code below enables streaming with a little tweak. Ensure co.chat stream is True
     """
     if not response:
         raise HTTPException(status_code=500, detail="Chatbot response error")
     
     citations_flag = False
 
-    resultant = []
-    result = ""
+    result = []
+    text = ""
     for event in response:
         stream_type = type(event).__name__
         
         # Text
         if stream_type == "StreamTextGeneration":
-            result += event.text
+            text += event.text
 
 
         # Citations
@@ -98,9 +110,10 @@ def conversation(input: str, db: Session = Depends(get_db), current_user: user =
 
                 citations_flag = True
             print(event.citations[0])
-            resultant.append(event.citations[0])
+            result.append(event.citations[0])
     """
-    #print({"AI":text, "CITATIONS":result})
+    
+    print({"AI":text, "CITATIONS":result})
     return {"AI":text, "CITATIONS":result}
 
 

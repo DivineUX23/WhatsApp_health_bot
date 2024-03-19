@@ -36,13 +36,15 @@ google_api_key = os.getenv("GOOGLE_API_KEY")
 
 class Gemini:
     def __init__(self):
-        self.description =  """
-                                You are a highly skilled and empathetic doctor.
-                                Your primary role is to diagnose ailments based on the symptoms described by the patient.
-                                Ask relevant questions to gather enough information about the patient's condition.
-                                Once you have enough information, use the tool to provide a possible diagnosis and suggest appropriate treatments or medications.
-                                Remember to maintain a professional and caring tone throughout the conversation.
-                            """
+        self.description =  """You are a medical chatbot focused on diagnosing and suggesting remedies for common, non-emergency conditions when professional care is unavailable. Through active listening and follow-up questions, gather detailed information about the user's symptoms to determine the specific condition. Ask probing questions, just like a doctor would, to pinpoint the exact ailment before providing potential diagnoses.
+
+                                    Your scope covers minor illnesses, injuries, and general health concerns like colds, flu, headaches, muscle aches, minor cuts/burns, allergic reactions, digestive issues, and sleep disturbances. For these conditions, suggest appropriate over-the-counter medications, home remedies, or lifestyle changes.
+
+                                    However, if symptoms indicate a potentially serious or complex condition requiring immediate attention, advise the user to seek emergency medical care or consult a healthcare professional promptly. Maintain an objective, caring tone throughout, avoiding subjective recommendations. And keep your response consice and well structured.
+
+                                    Always end the conversation with a disclaimer that your recommendations are not a substitute for professional medical advice, diagnosis, or treatment.
+                                    """
+
         self.tool = None
 
         self.tavily = None
@@ -65,10 +67,7 @@ class Gemini:
         )
 
         search = TavilySearchAPIWrapper(tavily_api_key=tavily_api_key)
-
         tavily_tool = TavilySearchResults(api_wrapper=search, description=self.description)
-
-        #testo:
         self.tavily = [tavily_tool]
 
         if choose_tool.lower() == "tavily search":
@@ -83,11 +82,17 @@ class Gemini:
             raise HTTPException(status_code=500, detail="Provide a valid input (Y or N)")    
 
 
-    def gemini(self, input):
+
+
+    def gemini(self, message):
                 
+        input = f"""Diagnose and suggest remedies for this user's codition. Through active listening and follow-up questions, gather detailed information about the user's symptoms to determine the specific condition. Ask probing questions, just like a doctor would, to pinpoint the exact ailment before providing potential diagnoses. keep your response consice and well structured.
+                                            User: {message} 
+                                            Medical chatbot: """
+
         self.input = input
         #--class.gemini:
-        llm = ChatGoogleGenerativeAI(temperature=0, model="gemini-pro", google_api_key=gemini_api_key)
+        llm = ChatGoogleGenerativeAI(temperature=0.1, model="gemini-pro", google_api_key=gemini_api_key)
 
         prompt = ChatPromptTemplate.from_messages(
             [
@@ -96,7 +101,6 @@ class Gemini:
                 MessagesPlaceholder(variable_name="agent_scratchpad"),
             ]
         )
-
 
 
         llm_with_tools = llm.bind(functions=self.tool)
@@ -118,12 +122,15 @@ class Gemini:
         )
 
 
-        self.agent_executor = AgentExecutor(agent=agent, tools=self.tool, verbose=True, return_intermediate_steps=True, handle_parsing_errors=True)
+        self.agent_executor = AgentExecutor(
+            agent=agent, 
+            tools=self.tool, 
+            verbose=True, 
+            return_intermediate_steps=True, 
+            handle_parsing_errors=True,
+        )
 
 
-        #chat_history = []
-
-        
         result = self.agent_executor.invoke({"input": input, "chat_history": self.chat_history})
         self.chat_history.extend(
             [
@@ -133,7 +140,6 @@ class Gemini:
         )
 
         lst=result["intermediate_steps"]
-        #citation = []
         citation = ""
         
         if lst != []:
@@ -143,14 +149,13 @@ class Gemini:
             if self.tool == self.tavily:
                 try:
                     obj = json.dumps(lst[0][1])
-
                     urls = [item['url'] for item in json.loads(obj)]
-
                     for url in urls:
-                        #citation.append(url)
                         citation += f"\n\n{url}"
                 except TypeError:
                     pass
+        #print(f"this is it------------\n\n\n{result}\n\n\n")
+        print(f"this------------\n\n\n{result['output']}\n\n\n")
 
         return result['output'], citation
     
@@ -164,6 +169,6 @@ def run(input: str, choice: search, db: Session = Depends(get_db), current_user:
     gemini.tools(choice)
 
     result, citation  = gemini.gemini(input)
-    print({"AI":result, "\n\nCITATIONS":citation})
+    #print({"AI":result, "\n\nCITATIONS":citation})
 
     return {"AI":result, "CITATIONS":citation}

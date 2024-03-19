@@ -17,8 +17,6 @@ async def home():
     return {"Message": "Debugger TESTING----"}
 
 
-#ENDPOINT
-
 chosen = None
 choice = None
 @app.post("/twilio/")
@@ -39,15 +37,23 @@ async def twilio(request: Request, manager: llama.Choose = Depends(llama.model_c
         chosen = await whatsapp_choose(choice = input, current_user=current_user, manager=manager)
         try:
             if chosen == "Cohere large AI":
-                sending_message = "I'm happy to assist you. Could you describe any health concerns you're experiencing?"
+                sending_message = "Ready to assist! What questions do you have for me?"
             elif chosen == "Google Gemini AI":
-                sending_message = "Would you like me to be detailed or concise? \nPlease reply with one of these options."
+                sending_message = "I'm happy to assist you. Could you describe any health concerns you're experiencing?"
+
             else:
                 sending_message = chosen
         except Exception as e:
             print(f"Failed to send message: {e}")
 
+
+    #TAKE_NOTE: MADE TAVILY SEARCH NOT AN OPTION FOR USERS DUE TO ERRORS FEEL FREE TO UNCOMMENT THE CODE BELOW AND COMMENT THE CHOICE BELOW TO TRY OUT TAVILY SEARCH 
+        
+        choice = "Google search"
+
+        """
     elif chosen == "Google Gemini AI" and choice == None:
+        choice = input
 
         if input.lower() == "detailed":
             input = "Tavily search"
@@ -67,6 +73,7 @@ async def twilio(request: Request, manager: llama.Choose = Depends(llama.model_c
         except Exception as e:
             print(f"Failed to send message: {e}")            
         print(res)
+        """
 
     elif chosen in ["Cohere large AI", "Google Gemini AI"]:
         response = await llama.conversationing(input = input, choice = choice, manager = manager, db = db, current_user = current_user)        
@@ -90,13 +97,16 @@ async def twilio(request: Request, manager: llama.Choose = Depends(llama.model_c
 
 async def whatsapp_choose(choice, current_user, manager: llama.Choose = Depends(llama.model_choice)):
     
-    if choice.lower() in ("detailed", "diagnosis") or "detail" in choice.lower():
-        choice = "Cohere large AI"
-    elif choice.lower() in ("quick", "check-in") or "quick" in choice.lower():
+    choice = choice.lower() 
+    if "diagnosis" in choice:
         choice = "Google Gemini AI"
+    elif "tip" in choice or "resources" in choice:
+        choice = "Cohere large AI"
+
 
     if choice not in ["Cohere large AI", "Google Gemini AI"]:
-        user_choose = "Hi! How about a detailed diagnosis or a quick check-in? \n\nPlease reply with one of these options."
+        user_choose = "Hello! Would you prefer a comprehensive health diagnosis or a health tip with useful resources? \n\nKindly respond with 'diagnosis' for a detailed health assessment or 'health tip' for a quick health tip and resource."
+    
     else:
         choosen = await llama.choose(choice = choice, manager = manager, current_user = current_user)
         user_choose = choice 
