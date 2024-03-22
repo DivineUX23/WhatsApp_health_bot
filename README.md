@@ -19,20 +19,18 @@ Focusing on WhatsApp as the frontend leverages existing familiarity, especially 
 The assistant uses two AI models - Cohere and Google Gemini, to provide robust diagnosis capabilities. Users can have natural conversations with the assistant, describing any symptoms they are experiencing. If needed, the assistant will ask clarifying questions and provide possible diagnoses based on the symptoms. 
 
 ### Key features
-The application is designed to interact with users, collecting information about their symptoms and providing possible diagnoses and treatments. Key features include:
 
-- Users can choose between Cohere AI and Google Gemini AI to provide diagnosis based on user info and search results.
+- WhatsApp Integration: Users can interact with the medical AI assistant directly through WhatsApp, leveraging the popular messaging platform's familiarity and accessibility.
+  
+- Cohere AI and Google Gemini AI: The assistant utilizes two powerful AI models, Cohere and Google Gemini, to provide robust diagnosis capabilities.
+  
+- Natural Conversation: Users can have natural conversations with the assistant, describing any symptoms they are experiencing. The assistant will ask clarifying questions as needed.
 
-- Cohere AI powers the chatbot conversation. It is set up to provide diagnosis based on user info and search results.
+- Diagnosis Suggestions: Based on the user's symptoms, the assistant provides possible diagnoses and suggests potential treatments or next steps.
+  
+- Web Search Integration: The assistant incorporates web search results from Google Search and Tavily Search to enhance its knowledge base and provide more accurate recommendations.
 
-- Google Gemini AI also powers the chatbot conversation fully capable of replacing Cohere AI. Users can choose to activate Google Gemini instead of Cohere AI.
-
-- User input is analyzed to extract symptoms and gather information. The bot asks clarifying questions as needed. 
-
-- Once the bot has enough information, it provides a tentative diagnosis and suggests potential treatments or next steps based on information from the web.
-
-- Bot responses include citations/links to any external sources used.
-
+- Citation Tracking: Any external sources used by the assistant for diagnosis or treatment recommendations are included as citations in the response.
 
 ## Table of Contents
 - [Technologies](#technologies)
@@ -44,14 +42,15 @@ The application is designed to interact with users, collecting information about
 
 ## Technologies
 
-- FastAPI - REST API framework 
-- SQLAlchemy - Database ORM
-- Cohere - Conversational AI
-- Google Gemini - Generative AI
-- Google Search - Search API
-- Tavily Search - Search API
-- OAuth - Authentication
-
+- FastAPI - REST API framework for building the backend server.
+- SQLAlchemy - Database ORM for user management and data storage.
+- Cohere - Conversational AI model for natural language processing.
+- Google Gemini - Generative AI model for diagnosis and treatment suggestions.
+- Google Search - Web search integration for gathering relevant health information.
+- Tavily Search - Alternative web search integration option.
+- OAuth - Authentication system for user accounts.
+- Twilio - Communication platform for integrating with WhatsApp.
+  
 
 ## Installation
 1. Clone the repository:
@@ -68,23 +67,40 @@ source venv/bin/activate  # On Windows use `venv\Scripts\activate`
 pip install -r requirements.txt  
 ```
 4. Set up environment variables:
-Create a `.env` file in your root directory and add your Cohere, Tavily, and Google API keys.
+Create a `.env` file in your root directory and add your Cohere, Tavily, Google, and Twilio API keys.
 ```plaintext
 CohereAPI=your_cohere_api_key
 TAVILY_API_KEY=your_tavily_api_key
 GEMINI_API_KEY=your_gemini_api_key
+GOOGLE_CSE_ID=your_google_cse_id
+GOOGLE_API_KEY=your_google_api_key
+account_sid=your_twilio_account_sid
+auth_token=your_twilio_auth_token
+FROM=your_twilio_number
 ```
 
 Run the main file:
 ```
 uvicorn main:app
 ```
-The application will start and you can interact with it via the command line.
+The application will start, and you can interact with it via WhatsApp by sending messages to the configured Twilio number.
 
-The assistant will be available at http://localhost:8000/docs
+The assistant will also be available at http://localhost:8000/docs
+
 
 
 ## Usage
+
+Once the application is running, you can interact with the medical AI assistant through WhatsApp. Simply send a message to the configured Twilio number, and the assistant will respond with prompts or questions to gather information about your symptoms.
+
+Follow the assistant's instructions, and provide detailed descriptions of your symptoms. The assistant will use the information you provide to suggest possible diagnoses and recommend treatments or next steps.
+
+The assistant may ask clarifying questions to better understand your condition. Respond accordingly, and the assistant will continue refining its diagnosis and recommendations.
+
+At the end of the conversation, the assistant will provide citations or links to the sources it used for its recommendations. Remember that the assistant's suggestions should not replace professional medical advice, diagnosis, or treatment.
+
+
+## Usage (API Endpoint for testing)
 
 Interact with the assistant through the `/conversation` endpoint. 
 
@@ -140,32 +156,28 @@ Other files:
 ## File Structure
 The project has the following file structure:
 ```HEALTH
-├── datab
-│   └── Health
-│       ├── __pycache__
-│       └── db.py
+Health
+├── database
+│   └── db.py
 ├── model
-│   ├── __pycache__
 │   └── users_model.py
 ├── schema
-│   ├── __pycache__
-│   └── users_schema.py 
-├── services 
-│   ├── __pycache__ 
-│   ├── cohere.py 
-│   └── gemini.py 
-├── user_services.py 
-├── venv 
-├── .env 
-├── .gitignore 
-├── hashing.py 
-├── llama.py  
-├── main.py  
-├── oauth.py  
-├── requirements.txt  
-├── token_key.py  
-├── user_login.py  
-╰─ user.py   
+│   └── users_schema.py
+│   └── llm_schema.py
+├── services
+│   ├── cohere.py
+│   ├── gemini.py
+│   └── twilio.py
+├── venv
+├── .env
+├── hashing.py
+├── llama.py
+├── main.py
+├── oauth.py
+├── requirements.txt
+├── token_key.py
+├── user_login.py
+└── user.py   
 
 ```
 
@@ -222,3 +234,5 @@ Some areas that could use improvement:
 - Expanding the vocabulary and training data for medical symptom understanding
 - Integrating additional healthcare APIs for diagnosis suggestions
 - Building a user account system to track diagnosis history
+- Improving the natural language processing and conversation flow.
+- Enhancing the search capabilities and knowledge base for more accurate recommendations.
