@@ -100,7 +100,7 @@ The assistant may ask clarifying questions to better understand your condition. 
 At the end of the conversation, the assistant will provide citations or links to the sources it used for its recommendations. Remember that the assistant's suggestions should not replace professional medical advice, diagnosis, or treatment.
 
 
-## Usage (API Endpoint for testing)
+## API Endpoint for testing
 
 Interact with the assistant through the `/conversation` endpoint. 
 
@@ -181,6 +181,26 @@ Health
 
 ```
 
+
+## Google Gemini Integration
+The `gemini.py` file includes code that integrates Google’s Gemini AI. This AI can be used to provide medical advice, serving as an alternative to the Cohere API. 
+
+The code is constructed using the Langchain framework, which equips Google Gemini with the capability to search the web and deliver suitable health diagnoses:
+
+- Interpret symptoms and provide relevant medical guidance.
+  
+- Engages users in a dialogue to gather comprehensive information about their health conditions.
+
+- Suggests potential treatments, backed by data and research.
+  
+- API keys loaded from `.env`. 
+
+- Built on LangChain library.
+
+- Tools include Tavily search and Google search.
+
+
+
 ## Cohere Integration
 The `cohere.py` file contains code for integrating the Cohere API into the application. It uses FastAPI and SQLAlchemy to create an interactive endpoint where users can communicate with the AI for medical advice. Some key points:
 
@@ -190,27 +210,7 @@ The `cohere.py` file contains code for integrating the Cohere API into the appli
 
 - Overridable preamble provides bot instructions/persona.
 
-- Bot responses streamed back line-by-line.
-
 - Citations extracted and returned.
-
-
-## Google Gemini Integration
-The `gemini.py` file includes code that integrates Google’s Gemini AI. This AI can be used to provide medical advice, serving as an alternative to the Cohere API. 
-
-The code is constructed using the Langchain framework, which equips Google Gemini with the capability to search the web and deliver suitable health diagnoses. 
-
-Furthermore, it employs FastAPI and SQLAlchemy to establish an interactive endpoint, enabling users to seek medical advice from the AI. Some key points:
-
-- API keys loaded from `.env`. 
-
-- Built on LangChain library.
-
-- Tools include Tavily search and Google search.
-
-- Prompt formats bot responses.
-
-- Results post-processed to extract citations.
 
 
 ## Further Work
