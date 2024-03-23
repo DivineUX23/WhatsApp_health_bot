@@ -14,6 +14,14 @@ https://github.com/DivineUX23/WhatsApp_health_bot/assets/96517814/606e2a40-c259-
 
 
 
+https://github.com/DivineUX23/WhatsApp_health_bot/assets/96517814/d92eb43e-3892-4e8d-b5c1-6a183f159f00
+
+
+
+https://github.com/DivineUX23/WhatsApp_health_bot/assets/96517814/5a65fb57-2f86-40e5-9c14-d8082ef4597f
+
+
+
 ## Problem statement
 
 Millions in underserved regions lack access to healthcare, leading to undiagnosed illnesses and escalating costs due to delayed treatment. 
