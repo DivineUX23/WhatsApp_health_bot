@@ -10,6 +10,7 @@ This innovative solution serves as a trusted 24/7 medical companion, offering ex
 ## Video Demo
 
 <video controls src="WhatsApp_Health-bot_Demo.mp4" title="Bot Demo"></video>
+[![Alt text](WhatsApp_Health-bot_Demo.mp4)
 
 
 ## Problem statement
