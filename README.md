@@ -7,6 +7,11 @@ Through intuitive conversations, individuals can describe their symptoms and rec
 This innovative solution serves as a trusted 24/7 medical companion, offering expert insights at users' fingertips, anytime, anywhere.
 
 
+## Video Demo
+
+
+
+
 ## Problem statement
 
 Millions in underserved regions lack access to healthcare, leading to undiagnosed illnesses and escalating costs due to delayed treatment. 
