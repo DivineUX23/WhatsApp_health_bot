@@ -10,10 +10,7 @@ This innovative solution serves as a trusted 24/7 medical companion, offering ex
 ## Video Demo
 
 
-
 https://github.com/DivineUX23/WhatsApp_health_bot/assets/96517814/606e2a40-c259-4070-97ab-b077c8ed833f
-
-
 
 
 
