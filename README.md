@@ -12,14 +12,12 @@ This innovative solution serves as a trusted 24/7 medical companion, offering ex
 
 https://github.com/DivineUX23/WhatsApp_health_bot/assets/96517814/606e2a40-c259-4070-97ab-b077c8ed833f
 
+"Google Gemini AI performing Diagnosis"
 
 
 https://github.com/DivineUX23/WhatsApp_health_bot/assets/96517814/d92eb43e-3892-4e8d-b5c1-6a183f159f00
 
-
-
-https://github.com/DivineUX23/WhatsApp_health_bot/assets/96517814/5a65fb57-2f86-40e5-9c14-d8082ef4597f
-
+"Cohere AI Delivering In-depth Insights from Authoritative Health Resources, Complete with Direct Source Attributions"
 
 
 ## Problem statement
