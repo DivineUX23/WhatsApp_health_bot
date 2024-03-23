@@ -80,7 +80,7 @@ The assistant uses two AI models - Cohere and Google Gemini, to provide robust d
 ## Installation
 1. Clone the repository:
 ```
-git clone https://github.com/DivineUX23/Health_cohere.git
+git clone https://github.com/DivineUX23/WhatsApp_health_bot.git
 ```
 2. (Optional) Set up a virtual environment:
 ```bash
