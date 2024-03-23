@@ -10,7 +10,7 @@ This innovative solution serves as a trusted 24/7 medical companion, offering ex
 ## Video Demo
 
 
-
+<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAT4AAACeCAMAAAD1SvhvAAAAMFBMVEX///8AAAD39/fm5ubv7+/q6urqysrK+vr6dnZ2ioqK2trbf39/r6+vj4+P09PT29vb09fX18fHy8vL29vb29vZ7VDrhAAAAXklEQVR4Ae3U6Q3AIAwF0Jbb/Ri6UK5k5rHzK5oDhBnbx1iFNKDYWMBX9YvDyAaQz7oG8wEAAAAASUVORK5CYII=" alt="A red apple on a wooden table" width="200" height="200">
 
 https://github.com/DivineUX23/WhatsApp_health_bot/assets/96517814/606e2a40-c259-4070-97ab-b077c8ed833f
 
