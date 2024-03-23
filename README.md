@@ -228,12 +228,8 @@ Pull requests are welcome! Feel free to open issues for any bugs or ideas for ne
 
 Some areas that could use improvement:
 
-- Expanding the vocabulary and training data for medical symptom understanding
-
-- Integrating additional healthcare APIs for diagnosis suggestions
+- Enhancing the system prompt for better performance.
 
 - Building a user account system to track diagnosis history
-
-- Improving the natural language processing and conversation flow.
 
 - Enhancing the search capabilities and knowledge base for more accurate recommendations.
