@@ -157,21 +157,32 @@ The `AI` field contains the assistant's response. `citations` includes any pages
 The project is organized into the following main components:
 
 - `database`: Contains the database setup and utility functions for interacting with the SQLAlchemy database.
+  
 - `model`: Defines the User model for storing user data.
+  
 - `schema`: Defines the Pydantic schemas for data validation and serialization, including the User schema.
+  
 - `services`: Includes the core logic for the AI models and assistants.
   - `cohere.py`: Implements the Cohere AI model for conversational interactions.
   - `gemini.py`: Integrates the Google Gemini AI model for medical diagnosis and information retrieval.
+    
 - `main.py`: The main entry point for the FastAPI application, defining the API endpoints and routes.
+  
 - `.env`: Stores environment variables, including API keys and credentials.
+
 
 Additional files:
 
 - `user_service.py`: Contains shared utility functions for user-related operations.
+  
 - `oauth.py`: Implements OAuth2 authentication and authorization flows.
+  
 - `llama.py`: Manages the selection and instantiation of the AI models (Cohere or Gemini).
+  
 - `twilio.py`: Handles the integration with Twilio for WhatsApp messaging.
+  
 - `hashing.py`: Provides utility functions for password hashing and verification.
+  
 - `token_key.py`: Generates and manages the JWT token key.
 
 
