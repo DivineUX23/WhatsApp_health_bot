@@ -1,4 +1,4 @@
-# 24/7 Medical Support AI on WhatsApp 
+# MediChat AI: 24/7 Health Support on WhatsApp
 
 Empowering personal healthcare, this project delivers a conversational AI assistant directly to users' WhatsApp, providing round-the-clock access to medical guidance. 
 
