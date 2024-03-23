@@ -1,26 +1,29 @@
 # 24/7 Medical Support AI on WhatsApp 
 
-It's 2 am, and a sudden wave of unfamiliar symptoms disrupts your sleep.  With no recourse to a medical professional, you turn to your phone.  A sophisticated AI chatbot, readily available through your WhatsApp, analyzes your condition, offering potential diagnoses and suggesting over-the-counter remedies or home treatments.
+Empowering personal healthcare, this project delivers a conversational AI assistant directly to users' WhatsApp, providing round-the-clock access to medical guidance. 
 
-This project is a conversational AI assistant in WhatsApp to help users diagnose their medical issues. It allows users to describe their symptoms and receive diagnostic suggestions and treatment recommendations. It acts like a medical support companion available 24/7 at the reach of your phone, powered by Cohere and Google Gemini AI.
+Through intuitive conversations, individuals can describe their symptoms and receive potential diagnoses, treatment recommendations, and reliable online resources - all powered by the cutting-edge Cohere and Google Gemini AI models. 
 
+This innovative solution serves as a trusted 24/7 medical companion, offering expert insights at users' fingertips, anytime, anywhere.
 
 
 ## Problem statement
-Millions in regions with limited healthcare suffer from undiagnosed illnesses. Lack of understanding leads to untreated conditions, escalating costs when early intervention could prevent complications. 
 
-This project proposes a WhatsApp-based Conversational Health Chatbot to empower users with basic health tools for self-monitoring and informed decisions, preventing future complications.  
+Millions in underserved regions lack access to healthcare, leading to undiagnosed illnesses and escalating costs due to delayed treatment. 
 
-Focusing on WhatsApp as the frontend leverages existing familiarity, especially in developing countries, and eliminates the need for app downloads or website navigation for cost-effective access.
+This project proposes a WhatsApp-based Conversational Health Chatbot to provide accessible self-monitoring tools and informed decision-making. 
+
+Leveraging WhatsApp's familiarity, especially in developing countries, enables cost-effective access without dedicated app downloads or website navigation, empowering users to prevent complications through early intervention.
 
 
 ## Overview
 
 The assistant uses two AI models - Cohere and Google Gemini, to provide robust diagnosis capabilities. Users can have natural conversations with the assistant, describing any symptoms they are experiencing. If needed, the assistant will ask clarifying questions and provide possible diagnoses based on the symptoms. 
 
+
 ### Key features
 
-- WhatsApp Integration: Users can interact with the medical AI assistant directly through WhatsApp, leveraging the popular messaging platform's familiarity and accessibility.
+- WhatsApp Integration: Users can interact with the medical AI assistant through WhatsApp, leveraging the popular messaging platform's familiarity and accessibility.
   
 - Cohere AI and Google Gemini AI: The assistant utilizes two powerful AI models, Cohere and Google Gemini, to provide robust diagnosis capabilities.
   
@@ -30,7 +33,8 @@ The assistant uses two AI models - Cohere and Google Gemini, to provide robust d
   
 - Web Search Integration: The assistant incorporates web search results from Google Search and Tavily Search to enhance its knowledge base and provide more accurate recommendations.
 
-- Citation Tracking: Any external sources used by the assistant for diagnosis or treatment recommendations are included as citations in the response.
+- Citation Tracking: External sources used by the assistant for diagnosis or treatment recommendations are included as citations in the response.
+
 
 ## Table of Contents
 - [Technologies](#technologies)
@@ -40,16 +44,24 @@ The assistant uses two AI models - Cohere and Google Gemini, to provide robust d
 - [Cohere Integration](#cohere-integration)
 - [Google Gemini Integration](#google-gemini-integration)
 
+
 ## Technologies
 
 - FastAPI - REST API framework for building the backend server.
+
 - SQLAlchemy - Database ORM for user management and data storage.
+
 - Cohere - Conversational AI model for natural language processing.
+
 - Google Gemini - Generative AI model for diagnosis and treatment suggestions.
+
 - Google Search - Web search integration for gathering relevant health information.
+
 - Tavily Search - Alternative web search integration option.
+
 - OAuth - Authentication system for user accounts.
-- Twilio - Communication platform for integrating with WhatsApp.
+
+- Twilio - A communication platform for integrating with WhatsApp.
   
 
 ## Installation
@@ -83,10 +95,10 @@ Run the main file:
 ```
 uvicorn main:app
 ```
-The application will start, and you can interact with it via WhatsApp by sending messages to the configured Twilio number.
 
-The assistant will also be available at http://localhost:8000/docs
+5. Access the API documentation at http://localhost:8000/docs to interact with the endpoints and test the functionality.
 
+6. Users can initiate a conversation with the medical AI assistant by sending a message to the designated WhatsApp number, and the AI will engage in a dialogue to provide relevant health-related assistance.
 
 
 ## Usage
@@ -95,7 +107,7 @@ Once the application is running, you can interact with the medical AI assistant 
 
 Follow the assistant's instructions, and provide detailed descriptions of your symptoms. The assistant will use the information you provide to suggest possible diagnoses and recommend treatments or next steps.
 
-The assistant may ask clarifying questions to better understand your condition. Respond accordingly, and the assistant will continue refining its diagnosis and recommendations.
+The assistant may ask clarifying questions to understand your condition. Respond accordingly, and the assistant will continue refining its diagnosis and recommendations.
 
 At the end of the conversation, the assistant will provide citations or links to the sources it used for its recommendations. Remember that the assistant's suggestions should not replace professional medical advice, diagnosis, or treatment.
 
@@ -129,34 +141,31 @@ The `AI` field contains the assistant's response. `citations` includes any pages
 
 ## Code Structure
 
-The code is structured into the following folders:
+The project is organized into the following main components:
 
-- `database`: Contains DB setup and access logic.
+- `database`: Contains the database setup and utility functions for interacting with the SQLAlchemy database.
+- `model`: Defines the User model for storing user data.
+- `schema`: Defines the Pydantic schemas for data validation and serialization, including the User schema.
+- `services`: Includes the core logic for the AI models and assistants.
+  - `cohere.py`: Implements the Cohere AI model for conversational interactions.
+  - `gemini.py`: Integrates the Google Gemini AI model for medical diagnosis and information retrieval.
+- `main.py`: The main entry point for the FastAPI application, defining the API endpoints and routes.
+- `.env`: Stores environment variables, including API keys and credentials.
 
-- `model`: Defines the User model.
+Additional files:
 
-- `schema`: Validation schemas for Users. 
-
-- `services`: Individual bot logic - `cohere.py` and `gemini.py`.
-
-- `main.py`: Main app startup and endpoints.
-
-- `.env`: Stores credentials and API keys.
-
-Other files:
-
-- `user_service.py`: Shared user logic.
-
-- `oauth.py`: Auth routes. 
-
-- Etc.
+- `user_service.py`: Contains shared utility functions for user-related operations.
+- `oauth.py`: Implements OAuth2 authentication and authorization flows.
+- `llama.py`: Manages the selection and instantiation of the AI models (Cohere or Gemini).
+- `twilio.py`: Handles the integration with Twilio for WhatsApp messaging.
+- `hashing.py`: Provides utility functions for password hashing and verification.
+- `token_key.py`: Generates and manages the JWT token key.
 
 
 
 ## File Structure
 The project has the following file structure:
-```HEALTH
-Health
+``` HEALTH
 ├── database
 │   └── db.py
 ├── model
@@ -204,7 +213,7 @@ The code is constructed using the Langchain framework, which equips Google Gemin
 ## Cohere Integration
 The `cohere.py` file contains code for integrating the Cohere API into the application. It uses FastAPI and SQLAlchemy to create an interactive endpoint where users can communicate with the AI for medical advice. Some key points:
 
-- Cohere API key is stored in `.env` and loaded at runtime.
+- The Cohere API key is stored in `.env` and loaded at runtime.
 
 - Unique conversation ID generated for each chat session.
 
@@ -213,18 +222,6 @@ The `cohere.py` file contains code for integrating the Cohere API into the appli
 - Citations extracted and returned.
 
 
-## Further Work
-
-- Connect endpoints to UI.
-
-- Add user account features. 
-
-- Expand bot knowledge base for more robust conversations.
-
-- Improve diagnosis accuracy with medical datasets.
-
-- Add more search tools.
-
 
 ## Contributing
 Pull requests are welcome! Feel free to open issues for any bugs or ideas for new features.
@@ -232,7 +229,11 @@ Pull requests are welcome! Feel free to open issues for any bugs or ideas for ne
 Some areas that could use improvement:
 
 - Expanding the vocabulary and training data for medical symptom understanding
+
 - Integrating additional healthcare APIs for diagnosis suggestions
+
 - Building a user account system to track diagnosis history
+
 - Improving the natural language processing and conversation flow.
+
 - Enhancing the search capabilities and knowledge base for more accurate recommendations.
