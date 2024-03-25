@@ -3,6 +3,9 @@ from database.db import Base
 from datetime import datetime, timedelta
 
 
+#Usually for testing API endpoint.
+#Use when connected to a frontend (not whatsapp).
+
 class User(Base):
     __tablename__ = "user"
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)

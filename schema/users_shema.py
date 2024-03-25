@@ -5,6 +5,9 @@ from fastapi import HTTPException, status
 
 
 
+#Usually for testing API endpoint.
+#Use when connected to a frontend (not whatsapp).
+
 
 class user(BaseModel):
 
