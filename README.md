@@ -216,7 +216,7 @@ The project has the following file structure:
 
 
 ## Google Gemini Integration
-The `gemini.py` file includes code that integrates Google’s Gemini AI. This AI can be used to provide medical advice, serving as an alternative to the Cohere API. 
+The `gemini.py` file integrates Google’s Gemini AI, Which provides diagnoses and recommends treatments. 
 
 The code is constructed using the Langchain framework, which equips Google Gemini with the capability to search the web and deliver suitable health diagnoses:
 
@@ -235,7 +235,11 @@ The code is constructed using the Langchain framework, which equips Google Gemin
 
 
 ## Cohere Integration
-The `cohere.py` file contains code for integrating the Cohere API into the application. It uses FastAPI and SQLAlchemy to create an interactive endpoint where users can communicate with the AI for medical advice. Some key points:
+The `cohere.py` file integrates the Cohere API into the application. It uses FastAPI and SQLAlchemy to create an interactive endpoint where users can communicate with the AI for medical advice. Some key points:
+
+- Delivers in-depth insights from Authoritative health resources.
+
+- Provides direct citation of reputable online sources utilized.
 
 - The Cohere API key is stored in `.env` and loaded at runtime.
 
