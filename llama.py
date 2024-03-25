@@ -63,7 +63,6 @@ async def choose(choice: choose, manager: Choose = Depends(model_choice), curren
 
 
 #Conversation Endpoint:
-
 @app.post("/response/")
 async def conversationing(input: str, choice: search, manager: Choose = Depends(model_choice), db: Session = Depends(get_db), current_user: user = Depends(oauth.get_current_user)):
 
