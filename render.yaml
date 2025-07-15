@@ -2,7 +2,7 @@ services:
   - type: web
     name: whatsapp-health-bot  # Choose a name for your service
     env: python
-    pythonVersion: 3.11
+    pythonVersion: 3.12
     buildCommand: "pip install -r requirements.txt"
     startCommand: "uvicorn main:app --host 0.0.0.0 --port $PORT"
     plan: free  # Or a paid plan if you need more resources
