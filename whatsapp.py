@@ -33,6 +33,17 @@ async def twilio(request: Request, manager: llama.Choose = Depends(llama.model_c
     send_message(sender_id, "Thinking...")
     current_user = sender_id   
 
+ 
+    if input.lower() == "start over":
+        global chosen
+        global choice
+        chosen = None
+        choice = None
+        sending_message = "Chat restarted. Please choose 'diagnosis' or 'health tip'."
+        send_message(sender_id, sending_message)
+        return {'message': status.HTTP_200_OK, "Detail": "Chat restarted. Please choose 'diagnosis' or 'health tip'."}
+    
+
     if chosen not in ["Cohere large AI", "Google Gemini AI"]:
         chosen = await whatsapp_choose(choice = input, current_user=current_user, manager=manager)
         try:

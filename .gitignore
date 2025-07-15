@@ -11,3 +11,5 @@ virtual
 myenv
 .space
 flagged
+venv
+.venv

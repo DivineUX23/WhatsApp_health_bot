@@ -12,9 +12,9 @@ client = Client(account_sid, auth_token)
 def send_message(to: str, message: str) -> None:
 
     send = client.messages.create(
-        from_=from_number,
+        from_=f"whatsapp:{from_number}",
         body=message,
         to=to
     )
 
-    print(f"by whatsapp {send}")
+    #print(f"by whatsapp {send}")

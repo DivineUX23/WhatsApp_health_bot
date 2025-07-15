@@ -31,7 +31,7 @@ tavily_api_key = os.getenv("TAVILY_API_KEY")
 gemini_api_key = os.getenv("GEMINI_API_KEY")
 google_cse_id = os.getenv("GOOGLE_CSE_ID")
 google_api_key = os.getenv("GOOGLE_API_KEY")
-
+google_model_name = os.getenv("GOOGLE_MODEL_NAME")
 
 
 class Gemini:
@@ -90,9 +90,10 @@ class Gemini:
                                             User: {message} 
                                             Medical chatbot: """
 
+
         self.input = input
         #--class.gemini:
-        llm = ChatGoogleGenerativeAI(temperature=0.1, model="gemini-pro", google_api_key=gemini_api_key)
+        llm = ChatGoogleGenerativeAI(temperature=0.1, model=google_model_name, google_api_key=gemini_api_key)
 
         prompt = ChatPromptTemplate.from_messages(
             [

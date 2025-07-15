@@ -17,9 +17,8 @@ from dotenv import load_dotenv
 
 load_dotenv()  # take environment variables from .env.
 api_key = os.getenv("CohereAPI")
-
-
 cohere_api = config("CohereAPI")
+cohere_model_name = os.getenv("COHERE_MODEL_NAME")
 
 
 class Chatbot:
@@ -43,7 +42,7 @@ class Chatbot:
                             User: {message} 
                             Health Information Search Assistant: """
         response = co.chat(
-                        model='command',
+                        model=cohere_model_name,
                         message=messages,
                         preamble_override=self.preamble_override,
                         conversation_id=self.conversation_id,

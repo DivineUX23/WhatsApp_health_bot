@@ -1,0 +1,37 @@
+services:
+  - type: web
+    name: whatsapp-health-bot  # Choose a name for your service
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "uvicorn main:app --host 0.0.0.0 --port $PORT"
+    plan: free  # Or a paid plan if you need more resources
+    envVars:
+      - key: TWILIO_ACCOUNT_SID
+        fromSecret: twilio_account_sid  # Store as a Render secret
+      - key: TWILIO_AUTH_TOKEN
+        fromSecret: twilio_auth_token
+      - key: WHATSAPP_NUMBER # Or FROM, check the correct env variable in your code.
+        fromSecret: whatsapp_number  # Or from_number, check your code.
+      - key: CohereAPI
+        fromSecret: cohere_api
+      - key: COHERE_MODEL_NAME
+        fromSecret: cohere_model_name
+      - key: TAVILY_API_KEY
+        fromSecret: tavily_api_key
+      - key: GEMINI_API_KEY
+        fromSecret: gemini_api_key
+      - key: GOOGLE_CSE_ID
+        fromSecret: google_cse_id
+      - key: GOOGLE_API_KEY
+        fromSecret: google_api_key
+      - key: GOOGLE_MODEL_NAME
+        fromSecret: google_model_name
+      - key: account_sid # Twilio credentials in twilio.py now use account_sid, auth_token, FROM
+        fromSecret: account_sid
+      - key: auth_token
+        fromSecret: auth_token
+      - key: FROM #Twilio number in twilio.py
+        fromSecret: twilio_from_number
+      - key: SECRET_KEY #JWT Secret Key
+        fromSecret: secret_key
+    autoDeploy: true
