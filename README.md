@@ -114,6 +114,31 @@ uvicorn main:app
 6. Users can initiate a conversation with the medical AI assistant by sending a message to the designated WhatsApp number, and the AI will engage in a dialogue to provide relevant health-related assistance.
 
 
+## 🚀 Docker Quickstart
+
+You can run this project instantly using Docker!
+The latest image is available on [Docker Hub](https://hub.docker.com/r/divineux23/whatsapp-health-bot).
+
+### Run the app with Docker
+
+```sh
+docker pull divineux23/whatsapp-health-bot:latest
+docker run -p 8000:8000 --env-file .env divineux23/whatsapp-health-bot:latest
+```
+
+- Make sure to create a `.env` file in your current directory with all required environment variables (see the [Installation](#installation) section for details).
+- The app will be available at [http://localhost:8000](http://localhost:8000).
+
+### Deploy via Docker Image
+
+You can deploy this image to any cloud provider that supports Docker images (e.g., Render, AWS, Azure, GCP, etc.).
+Just use the image:
+```
+divineux23/whatsapp-health-bot:latest
+```
+and set the required environment variables.
+
+
 ## Usage
 
 Once the application is running, you can interact with the medical AI assistant through WhatsApp. Simply send a message to the configured Twilio number, and the assistant will respond with prompts or questions to gather information about your symptoms.

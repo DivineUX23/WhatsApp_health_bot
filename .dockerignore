@@ -1,0 +1,11 @@
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.venv
+venv
+database.db
+.git
+.gitignore
+Dockerfile
+render.yaml
